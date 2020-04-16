@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://hdavis3:Lq!27RGtVPrE@tM@udemycoursedevconnector-tqoba.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "mysecretToken",
-  "githubToken": "681ad14f34980f4ba2bcecbe57add083c087e8f6"
-}
