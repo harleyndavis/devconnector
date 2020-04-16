@@ -30,8 +30,9 @@ ul {
   list-style: none;
 }
 
-img {
-  width: 100%;
+profile_icon {
+  height: 30px;
+  width: 30px;
 }
 
 /* Utilities */
@@ -328,6 +329,10 @@ button {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
+}
+
+.navbar img {
+  width: '30px';
 }
 
 /* Landing Page */
