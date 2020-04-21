@@ -13,11 +13,10 @@ router.post(
   '/',
   [
     auth,
-    [
-      check('text', 'Text is required')
-        .not()
-        .isEmpty()
-    ]
+    check('text', 'Text is required').not().isEmpty(),
+    check('title', 'Title is required').not().isEmpty(),
+    check('header', 'Header URL is required').not().isEmpty(),
+    check('thumb', 'Thumbnail URL is required').not().isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -26,13 +25,18 @@ router.post(
     }
 
     try {
+      console.log(req.file);
+      console.log(req.body);
       const user = await User.findById(req.user.id).select('-password');
 
       const newPost = new Post({
+        title: req.body.title,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        user: req.user.id,
+        header: req.body.header,
+        thumb: req.body.thumb
       });
 
       const post = await newPost.save();
@@ -47,8 +51,8 @@ router.post(
 
 // @route    GET api/posts
 // @desc     Get all posts
-// @access   Private
-router.get('/', auth, async (req, res) => {
+// @access   Public
+router.get('/', async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
     res.json(posts);
@@ -60,8 +64,8 @@ router.get('/', auth, async (req, res) => {
 
 // @route    GET api/posts/:id
 // @desc     Get post by ID
-// @access   Private
-router.get('/:id', auth, async (req, res) => {
+// @access   public
+router.get('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
 
@@ -113,7 +117,7 @@ router.put('/like/:id', auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Check if the post has already been liked
-    if (post.likes.some(like => like.user.toString() === req.user.id)) {
+    if (post.likes.some((like) => like.user.toString() === req.user.id)) {
       return res.status(400).json({ msg: 'Post already liked' });
     }
 
@@ -136,7 +140,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Check if the post has already been liked
-    if (!post.likes.some(like => like.user.toString() === req.user.id)) {
+    if (!post.likes.some((like) => like.user.toString() === req.user.id)) {
       return res.status(400).json({ msg: 'Post has not yet been liked' });
     }
 
@@ -159,14 +163,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 // @access   Private
 router.post(
   '/comment/:id',
-  [
-    auth,
-    [
-      check('text', 'Text is required')
-        .not()
-        .isEmpty()
-    ]
-  ],
+  [auth, [check('text', 'Text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -205,7 +202,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
 
     // Pull out comment
     const comment = post.comments.find(
-      comment => comment.id === req.params.comment_id
+      (comment) => comment.id === req.params.comment_id
     );
     // Make sure comment exists
     if (!comment) {

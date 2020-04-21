@@ -30,19 +30,20 @@ ul {
   list-style: none;
 }
 
-profile_icon {
-  height: 30px;
+.profile-icon {
+  border-radius: 50%;
   width: 30px;
+  height: 30px;
 }
 
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 50rem;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
+  margin-top: 6.5rem;
+  margin-bottom: 3.5rem;
 }
 
 /* Text Styles*/
@@ -299,6 +300,50 @@ button {
   background: var(--light-color);
 }
 
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  bottom: 0;
+  opacity: 0.9;
+}
+.footer ul {
+  display: flex;
+}
+
+.footer a {
+  color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+/* AdminNavbar */
+.adminnavbar {
+  max-width: 50rem;
+  display: block;
+  text-align: center;
+  border: solid 1px var(--primary-color);
+  margin: 0.7rem 0;
+  padding: 0.7rem 2rem;
+}
+
+.adminnavbar ul {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.adminnavbar a {
+  color: #000;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
 /* Navbar */
 .navbar {
   display: flex;
@@ -309,7 +354,6 @@ button {
   z-index: 1;
   width: 100%;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
 }
 
@@ -318,40 +362,22 @@ button {
 }
 
 .navbar a {
-  color: #fff;
+  color: #000;
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
 .navbar a:hover {
-  color: var(--primary-color);
+  color: black;
 }
 
 .navbar .welcome span {
   margin-right: 0.6rem;
 }
 
-.navbar img {
-  width: '30px';
-}
-
-/* Landing Page */
-.landing {
-  position: relative;
-  background: url('./img/showcase.jpg') no-repeat center center/cover;
-  height: 100vh;
-}
-
-.landing-inner {
-  color: #fff;
-  height: 100%;
-  width: 80%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.copyright {
+  margin-top: 0.4rem;
+  font-size: small;
 }
 
 /* Profiles Page */
@@ -458,25 +484,37 @@ button {
   flex-basis: 20%;
 }
 
-/* Posts Page */
-.post-form .post-form-header {
-  background: var(--primary-color);
-  padding: 0.5rem;
+.post-form {
+  max-width: 50rem;
+}
+
+.posts {
+  align-self: center;
+  display: grid;
+  align-items: center;
+  align-content: center;
 }
 
 .post {
+  max-width: 50rem;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 2rem;
+  grid-template-columns: 1fr 4fr 0.5fr;
+  grid-gap: 1rem;
   align-items: center;
 }
 
-.post > div:first-child {
-  text-align: center;
+.post > img {
+  float: left;
+  align-self: center;
+}
+
+.post * .text {
+  max-height: 3rem;
+  overflow: hidden;
 }
 
 .post img {
-  width: 100px;
+  width: 15rem;
 }
 
 .post .comment-count {
@@ -494,9 +532,9 @@ button {
 }
 
 /* Mobile Styles */
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   .container {
-    margin-top: 8rem;
+    margin-top: 11.5rem;
   }
 
   .hide-sm {
@@ -514,6 +552,27 @@ button {
 
   .lead {
     font-size: 1rem;
+  }
+
+  .footer {
+    display: block;
+    text-align: center;
+  }
+
+  .footer ul {
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* AdminNavbar */
+  .adminnavbar {
+    display: block;
+    text-align: center;
+  }
+
+  .adminnavbar ul {
+    text-align: center;
+    justify-content: center;
   }
 
   /* Navbar */
@@ -571,7 +630,9 @@ button {
     width: 100%;
     margin-bottom: 0.2rem;
   }
-
+  .posts {
+    margin-top: 11rem;
+  }
   .post {
     grid-template-columns: 1fr;
   }
